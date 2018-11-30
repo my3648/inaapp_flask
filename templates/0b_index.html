@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>INA-URCS</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/semantic.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/reset.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/site.css')}}">
+
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/container.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/grid.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/header.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/image.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/menu.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/modal.css')}}">
+
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/divider.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/dropdown.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/segment.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/button.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/list.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/icon.css')}}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/sidebar.css')}}"> -->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/transition.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/dimmer.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/components/popup.css')}}">
+
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/calendar.min.css')}}">
+
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='DataTables/datatables.min.css')}}">
+
+  <style type="text/css">
+    .hidden.menu {
+      display: none;
+    }
+
+    .masthead.segment {
+      min-height: 700px;
+      padding: 1em 0em;
+    }
+
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+
+    .ui.vertical.stripe .button+h3,
+    .ui.vertical.stripe p+h3 {
+      margin-top: 3em;
+    }
+
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+
+    .footer.segment {
+      padding: 5em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Following Menu -->
+  <div class="ui large top fixed hidden menu">
+    <div class="ui container">
+      <a class="active item">Home</a>
+      <a class="item">Test</a>
+      <a class="item">Index</a>
+      <a class="item">Uploads</a>
+      <a class="item">Analytics</a>
+      <a class="item">Toolbox</a>
+      <a class="item">Docs</a>
+      <a class="item">Get Involved</a>
+      <div class="right menu">
+        <div class="item">
+          <a class="ui button">Log in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Contents -->
+  <div class="pusher">
+    <div class="ui inverted vertical center aligned segment">
+      <div class="ui container">
+        <div class="ui secondary inverted pointing menu" style="border: 0px;">
+          <a href="/" class="item">Home</a>
+          <a class="item">Test</a>
+          <a href="/index" class="active item">Index</a>
+          <a class="item">Uploads</a>
+          <a href="/analytics" class="item">Analytics</a>
+          <a class="item">Toolbox</a>
+          <a class="item">Docs</a>
+          <a class="item">Get Involved</a>
+          <div class="right item">
+            <a class="ui inverted button">Log in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: white; min-height: 800px;">
+
+      <div class="ui vertical segment">
+        <div class="ui container">
+          <h4>Index Condition</h4>
+
+          <div>
+
+            <select id="sel_projectnum" class="ui search dropdown filindex">
+              <option value='' disabled selected style='display:none;'>project no.</option>
+            </select>
+
+            <select id="sel_vehnum" class="ui search dropdown filindex">
+              <option value='' disabled selected style='display:none;'>vehicle no.</option>
+            </select>
+
+            <select id="sel_devnum" class="ui search dropdown filindex">
+              <option value='' disabled selected style='display:none;'>device no.</option>
+            </select>
+
+          </div>
+
+          <div style="margin-top: 1px;">
+            <select id="sel_package" class="ui search dropdown filindex">
+              <option value='' disabled selected style='display:none;'>package</option>
+            </select>
+
+            <select id="sel_testitem" class="ui search dropdown filindex">
+              <option value='' disabled selected style='display:none;'>test item</option>
+            </select>
+          </div>
+
+          <div style="margin-top: 1px;">
+            <div class="ui calendar" id="example1" style="display: inline;">
+              <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input type="text" placeholder="start time">
+              </div>
+            </div>
+
+            <div class="ui calendar" id="example2" style="display: inline;">
+              <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input type="text" placeholder="end time">
+              </div>
+            </div>
+          </div>
+
+          <br/>
+
+          <button id="btn_clear" class="mini ui primary button">
+            Clear Selection
+          </button>
+
+          <button id="btn_search" class="mini ui primary button">
+            Search
+          </button>
+
+
+          <!-- <button id="btn_checkfile" class="mini ui primary button">
+            find
+          </button> -->
+
+          <div class="ui divider"></div>
+
+          <h4>Index Result</h4>
+
+          <div>
+            <table id="select_datatable" class="ui celled table">
+              <thead>
+                <tr>
+                  <th>no</th>
+                  <th>selected</th>
+                  <th>filename</th>
+                  <th>tags</th>
+                  <th>time</th>
+                  <th>size</th>
+                  <th>link</th>
+                  <th>extra</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ui checkbox"></div>
+  <div class="ui inverted vertical footer segment">
+    <div class="ui container">
+      <div class="ui stackable inverted divided equal height stackable grid">
+        <div class="three wide column">
+          <h4 class="ui inverted header">ABOUT URCS</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">About URCS</a>
+            <a href="#" class="item">Documentation</a>
+            <a href="#" class="item">Support / Contact Us</a>
+            <a href="#" class="item">FAQ</a>
+            <a href="#" class="item">URCS Weekly</a>
+            
+          </div>
+        </div>
+        <div class="four wide column">
+          <h4 class="ui inverted header">INNOVATION</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">Infrastructure</a>
+            <a href="#" class="item">Technical</a>
+            <a href="#" class="item">Quality monitoring program</a>
+            <a href="#" class="item">Future programs</a>
+          </div>
+        </div>
+        <div class="six wide column">
+          <h4 class="ui inverted header">INA GROUP</h4>
+          <p> UAES 2018. All rights reserved, also regarding any disposal, exploitation, reproduction, editing, distribution,
+            as well as in the event of applications for industrial property rights.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{url_for('static',filename='dist/assets/library/jquery-3.3.1.min.js')}}"></script>
+  <script src="{{url_for('static',filename='dist/semantic.min.js')}}"></script>
+
+  <script src="{{url_for('static',filename='dist/components/visibility.js')}}"></script>
+  <!-- <script src="{{url_for('static',filename='dist/components/sidebar.js')}}"></script> -->
+  <script src="{{url_for('static',filename='dist/components/transition.js')}}"></script>
+  <script src="{{url_for('static',filename='dist/components/dropdown.js')}}"></script>
+  <script src="{{url_for('static',filename='dist/components/modal.js')}}"></script>
+  <script src="{{url_for('static',filename='dist/components/dimmer.js')}}"></script>
+  <script src="{{url_for('static',filename='dist/components/popup.js')}}"></script>
+  <script src="{{url_for('static',filename='dist/calendar.min.js')}}"></script>
+
+  <script src="{{url_for('static',filename='DataTables/datatables.min.js')}}"></script>
+
+
+  <script>
+
+    var fileSelect;
+    $(document).ready(function () {
+
+      $('.ui.dropdown')
+        .dropdown()
+        ;
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://139.224.5.105:30002/uaes-intelligent-calibration/v1/wc/file/selectFilePrompt',
+        dataType: 'json',
+        success: function (data) {
+          console.log(data);
+          var projectList = data["data"]["projectNumberList"].sort();
+          var carNumberList = data["data"]["carNumberList"].sort();
+          var deviceNumberList = data["data"]["deviceNumberList"].sort();
+          var workPackageList = data["data"]["workPackageList"].sort();
+          var testItemList = data["data"]["testItemList"].sort();
+
+          var default_sel;
+          for (i = 0; i < projectList.length; i++) {
+            if (projectList[i] != null) {
+              default_sel = document.createElement('option');
+              default_sel.value = projectList[i];
+              default_sel.innerHTML = projectList[i];
+              $('#sel_projectnum').append(default_sel);
+            }
+          }
+
+          for (i = 0; i < carNumberList.length; i++) {
+            if (carNumberList[i] != null) {
+              default_sel = document.createElement('option');
+              default_sel.value = carNumberList[i];
+              default_sel.innerHTML = carNumberList[i];
+              $('#sel_vehnum').append(default_sel);
+            }
+          }
+
+          for (i = 0; i < deviceNumberList.length; i++) {
+            if (deviceNumberList[i] != null) {
+              default_sel = document.createElement('option');
+              default_sel.value = deviceNumberList[i];
+              default_sel.innerHTML = deviceNumberList[i];
+              $('#sel_devnum').append(default_sel);
+            }
+          }
+
+          for (i = 0; i < workPackageList.length; i++) {
+            if (workPackageList[i] != null) {
+              default_sel = document.createElement('option');
+              default_sel.value = workPackageList[i];
+              default_sel.innerHTML = workPackageList[i];
+              $('#sel_package').append(default_sel);
+            }
+          }
+
+          for (i = 0; i < testItemList.length; i++) {
+            if (testItemList[i] != null) {
+              default_sel = document.createElement('option');
+              default_sel.value = testItemList[i];
+              default_sel.innerHTML = testItemList[i];
+              $('#sel_testitem').append(default_sel);
+            }
+          }
+
+        },
+        error: function (red) {
+          console.log('request error');
+        }
+      });
+
+
+      $('#select_datatable').DataTable({
+        columns: [
+          { data: 'no' },
+          {
+            data: 'name',
+            "render": function (data, type, full, meta) {
+              return `<div class="ui checkbox">
+              <input type="checkbox" class="selectedfiles" name="`+ data + `">
+              <label></label>
+            </div>`;
+            }
+          },
+          { data: 'name' },
+          { data: 'tags' },
+          { data: 'time' },
+          { data: 'size' },
+          {
+            data: 'link',
+            "render": function (data, type, full, meta) {
+              return '<a href="' + data + '">download</a>';
+            }
+          },
+          {
+            data: 'extra',
+            "render": function (data, type, full, meta) {
+              return `<button class="circular ui icon button">
+                      <i class="icon settings"></i>
+                    </button>`;
+            }
+          }
+        ]
+      });
+
+      // clear specification
+      $('#btn_clear').on('click', function () {
+        $('.ui.search.dropdown.filindex').dropdown('clear');
+        $('.ui.calendar').calendar('clear');
+
+        var table = $('#select_datatable').DataTable();
+        table.rows().remove();
+        table.draw();
+
+      });
+
+    });
+
+
+    // initialize calender
+    var startTime;
+    $('#example1').calendar({
+      'disableYear': true,
+      'disableMinute': true,
+      'ampm': false,
+      'today': true,
+      'startMode': 'hour',
+      'formatter': {
+        date: function (date, settings) {
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          if (month < 10) month = '0' + month;
+          var day = date.getDate();
+          if (day < 10) day = '0' + day;
+          return year + '-' + month + '-' + day;
+        },
+        time: function (date, settings, forCalendar) {
+          var hour = date.getHours();
+          var minute = date.getMinutes();
+          if (hour < 10) hour = '0' + hour;
+          if (minute < 10) minute = '0' + minute;
+          return hour + ':' + minute + ':00';
+        }
+      },
+      onChange: function (date, text, mode) {
+        startTime = text;
+      }
+    });
+
+    var endTime;
+    $('#example2').calendar({
+      'disableYear': true,
+      'disableMinute': true,
+      'ampm': false,
+      'today': true,
+      'startMode': 'hour',
+      'formatter': {
+        date: function (date, settings) {
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          if (month < 10) month = '0' + month;
+          var day = date.getDate();
+          if (day < 10) day = '0' + day;
+
+          return year + '-' + month + '-' + day;
+        },
+        time: function (date, settings, forCalendar) {
+          var hour = date.getHours();
+          var minute = date.getMinutes();
+          if (hour < 10) hour = '0' + hour;
+          if (minute < 10) minute = '0' + minute;
+          return hour + ':' + minute + ':00';
+        }
+      },
+      onChange: function (date, text, mode) {
+        endTime = text;
+      }
+    });
+
+
+    $('#btn_search').on('click', function () {
+      var checkProjectNumber;
+
+      if (!$('#sel_projectnum').val()) {
+        checkProjectNumber = "";
+      }
+      else {
+        checkProjectNumber = $('#sel_projectnum').val();
+      }
+
+      var checkCarNumber;
+      if (!$('#sel_vehnum').val()) {
+        checkCarNumber = "";
+      }
+      else {
+        checkCarNumber = $('#sel_vehnum').val();
+      }
+
+      var checkDevNumber;
+      if (!$('#sel_devnum').val()) {
+        checkDevNumber = "";
+      }
+      else {
+        checkDevNumber = $('#sel_devnum').val();
+      }
+
+      var checkPack;
+      if (!$('#sel_package').val()) {
+        checkPack = "";
+      }
+      else {
+        checkPack = $('#sel_package').val();
+      }
+
+      var checkTask;
+      if (!$('#sel_testitem').val()) {
+        checkTask = "";
+      }
+      else {
+        checkTask = $('#sel_testitem').val();
+      }
+
+      var checkStartTime;
+      if (!startTime) {
+        checkStartTime = "";
+      }
+      else {
+        checkStartTime = startTime;
+      }
+
+      var checkEndTime;
+      if (!endTime) {
+        checkEndTime = "";
+      }
+      else {
+        checkEndTime = endTime;
+      }
+
+      var str_json = JSON.stringify(
+        {
+          'startTime': checkStartTime,
+          'endTime': checkEndTime,
+          'projectNumber': checkProjectNumber,
+          'carNumber': checkCarNumber,
+          'workPackage': checkPack,
+          'testItem': checkTask,
+          'deviceNumber': checkDevNumber
+        }
+      );
+
+      console.log(str_json);
+      // construct info table
+      $.ajax({
+        type: 'POST',
+        url: 'http://139.224.5.105:30002/uaes-intelligent-calibration/v1/wc/file/selectFile',
+        data: {
+          "jsonParam": str_json
+        },
+        dataType: 'json',
+        success: function (data) {
+          console.log(data);
+
+          var tabledata = [];
+
+          for (i = 0; i < data['data'].length; i++) {
+            tabledata.push({
+              'no': i + 1,
+              'selected': 0,
+              'name': data['data'][i]["fileName"],
+              'tags': "",
+              'time': data['data'][i]["createTime"],
+              'size': data['data'][i]["fileSize"],
+              'link': data['data'][i]["fileUrl"],
+              'extra': ''
+            });
+          }
+
+          var table = $('#select_datatable').DataTable();
+
+          table.rows().remove();
+          table.rows.add(tabledata);
+          table.draw();
+        },
+        error: function (red) {
+          console.log('request error');
+        }
+      });
+    });
+
+    // $('#btn_checkfile').on('click', function () {
+    //   $('.selectedfiles').each(function () {
+    //     if($(this)[0].checked==true){
+    //       console.log(($(this)[0].name));
+    //     }  
+    //   });
+    // });
+
+  </script>
+
+</body>
+
+</html>

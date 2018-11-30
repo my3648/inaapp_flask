@@ -1,0 +1,270 @@
+{% extends 'd00_00_analytics.html' %} {% block content %}
+<div id="plotBody">  
+</div>
+
+<script>
+
+  var plotdata;
+  var fho_series_Chart, fho_distr_Chart, tumg_series_Chart,tumg_distr_Chart;
+  var fileoptions_jsonOBJ;
+
+  plot_d00_a02_fho();
+
+  function plot_d00_a02_fho(){
+    $('#plotBody').html(`
+      <div style="height: 450px; ">
+      <!-- fho series -->
+      <div id="div_fho_series" style="width: 50%; height: 100%; float: left;"></div>
+      <!-- fho distr-->
+      <div id="div_fho_distr" style="width: 50%; height: 100%; float: left;"></div>
+      </div>
+
+      <div style="height: 450px; ">
+        <!-- tumg series-->
+        <div id="div_tumg_series" style="width: 50%; height: 100%; float: left;"></div>
+        <!-- tumg distr-->
+        <div id="div_tumg_distr" style="width: 50%; height: 100%; float: left;"></div>
+      </div>`);
+
+    var fileoptions = {{fileoption.requestedFiles|tojson}};
+    console.log(fileoptions);
+    fileoptions_jsonOBJ = JSON.parse(fileoptions);
+    console.log(fileoptions_jsonOBJ);
+
+    
+  }
+
+  $('#selecte_file_message').dropdown({
+        values: fileoptions_jsonOBJ['files']
+      });
+
+      $('#selecte_file_message').dropdown('set value', fileoptions_jsonOBJ['selected']);
+
+      $('.requestedFilesValues').attr('value', JSON.stringify(
+        {
+          "files": fileoptions_jsonOBJ['files'],
+          "selected": fileoptions_jsonOBJ['selected']
+        }
+      ));
+
+  $('#btn_submit_analysis').on('click', function () {
+    if ($('#selecte_file_message').dropdown('get value') != "") {
+      $.ajax({
+        type: 'POST',
+        url: 'http://139.224.5.105:30002/uaes-intelligent-calibration/v1/wc/hbase/selectHbase',
+        data: {
+          "fileName": $('#selecte_file_message').dropdown('get value'),
+          "type": "d00_a02_fho"
+        },
+        dataType: 'json',
+        success: function (data) {
+          plotdata = JSON.parse(data['value']);
+          console.log(plotdata);
+          setTimeout(function () {
+            make_plot_d00_a02_fho(plotdata,fho_series_Chart, fho_distr_Chart, tumg_series_Chart,tumg_distr_Chart);
+          }, 100);
+        }
+      });
+    }
+    else {
+      alert("please select data first");
+    }
+
+  });
+
+  function make_plot_d00_a02_fho(plotdata, fho_series_Chart, fho_distr_Chart, tumg_series_Chart, _tumg_distr_Chart) {
+    var fho_series_Chart = Highcharts.chart("div_fho_series", {
+      chart: {
+        borderColor: '#cccccc',
+        borderWidth: 1,
+        marginLeft: 70,
+      },
+      title: {
+        text: "fho",
+        style: {
+          color: '#7f7f7f',
+          fontWeight: 'bold',
+          fontSize: "12px"
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        title: {
+          text: "time"
+        }
+      },
+      yAxis: {
+        title: {
+          text: "fho"
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      series: [{
+        data: plotdata['fho_series'],
+        turboThreshold: 0,
+        lineWidth: 2
+      }]
+    });
+
+    var fho_distr_Chart = Highcharts.chart("div_fho_distr", {
+      chart: {
+        borderColor: '#cccccc',
+        borderWidth: 1,
+      },
+      title: {
+        text: "altitude distribution",
+        style: {
+          color: '#7f7f7f',
+          fontWeight: 'bold',
+          fontSize: "12px"
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        max: plotdata['fho_distr_x'].length - 1,
+        categories: plotdata['fho_distr_x'],
+        title: {
+          text: "altitude"
+        }
+      },
+      yAxis: {
+        title: {
+          text: "count"
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      series: [{
+        type: 'column',
+        data: plotdata['fho_distr_y'],
+        turboThreshold: 0,
+        lineWidth: 3
+      }]
+    });
+
+    var tumg_series_Chart = Highcharts.chart("div_tumg_series", {
+      chart: {
+        borderColor: '#cccccc',
+        borderWidth: 1,
+        marginLeft: 70,
+      },
+      title: {
+        text: "temperature",
+        style: {
+          color: '#7f7f7f',
+          fontWeight: 'bold',
+          fontSize: "12px"
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        title: {
+          text: "time"
+        }
+      },
+      yAxis: {
+        title: {
+          text: "temperature"
+        }
+      },
+      legend: {
+        enabled: true
+      },
+      series: [{
+        name: "tumg",
+        data: plotdata['tumg_series'],
+        turboThreshold: 0,
+        lineWidth: 2
+      },
+      {
+        name: "tans",
+        data: plotdata['tans_series'],
+        turboThreshold: 0,
+        lineWidth: 2
+      },
+      {
+        name: "tmot",
+        data: plotdata['tmot_series'],
+        turboThreshold: 0,
+        lineWidth: 2
+      },
+      {
+        name: "tmst",
+        data: plotdata['tmst_series'],
+        turboThreshold: 0,
+        lineWidth: 2
+      }]
+    });
+
+    var tumg_distr_Chart = Highcharts.chart("div_tumg_distr", {
+      chart: {
+        borderColor: '#cccccc',
+        borderWidth: 1,
+      },
+      title: {
+        text: "temperature distribution",
+        style: {
+          color: '#7f7f7f',
+          fontWeight: 'bold',
+          fontSize: "12px"
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        max: plotdata['tmot_distr_x'].length - 1,
+        categories: plotdata['tmot_distr_x'],
+        title: {
+          text: "tumg/tans/tmot/tmst"
+        }
+      },
+      yAxis: {
+        title: {
+          text: "count"
+        }
+      },
+      legend: {
+        enabled: true
+      },
+      series: [{
+        name: "tumg",
+        type: 'column',
+        data: plotdata['tumg_distr_y'],
+        turboThreshold: 0,
+        lineWidth: 3
+      },
+      {
+        name: "tans",
+        type: 'column',
+        data: plotdata['tans_distr_y'],
+        turboThreshold: 0,
+        lineWidth: 3
+      },
+      {
+        name: "tmot",
+        type: 'column',
+        data: plotdata['tmot_distr_y'],
+        turboThreshold: 0,
+        lineWidth: 3
+      },
+      {
+        name: "tmst",
+        type: 'column',
+        data: plotdata['tmst_distr_y'],
+        turboThreshold: 0,
+        lineWidth: 3
+      }]
+    });
+  }
+
+</script> {% endblock %}

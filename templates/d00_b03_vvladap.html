@@ -1,0 +1,204 @@
+{% extends 'd00_00_analytics.html' %} {% block content %}
+<div>
+  <div style="height: 350px; ">
+    <!-- IVVLFdbkof series -->
+    <div id="div_IVVLFdbkof_series" style="width: 65%; height: 100%; float: left;"></div>
+    <!-- IVVLFdbkof distr-->
+    <div id="div_IVVLFdbkof_distr" style="width: 35%; height: 100%; float: left;"></div>
+  </div>
+
+  <div style="height: 350px; ">
+    <!-- IVVLFdbkofr series-->
+    <div id="div_IVVLFdbkofr_series" style="width: 65%; height: 100%; float: left;"></div>
+    <!-- IVVLFdbkofr distr-->
+    <div id="div_IVVLFdbkofr_distr" style="width: 35%; height: 100%; float: left;"></div>
+  </div>
+
+</div>
+
+<script src="{{url_for('static',filename='dist/assets/library/jquery-3.3.1.min.js')}}"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=146f38cff16fee22715f107edad81eac"></script>
+<script>
+  var plotdata;
+  var jsGPS = [];
+
+
+  // {{url_for('static',filename='data_iumpr.json')}}
+  $.ajax({
+    type: 'POST',
+        url: 'http://139.224.5.105:30002/uaes-intelligent-calibration/v1/wc/hbase/selectHbase',
+        data: {
+          "fileName": "6034_788-4415ET18-ECU DI 0_user-undefined_D-O2_ok test_iupr_00006034_2018-11-03_12-26-44_2018-11-03_12-40-58_sorted.dat",
+          "type":"d00_b03_vvladap" 
+        },
+        dataType: 'json',
+    // url: "/d00_b03_vvladap_data",
+    // type: "get",
+    // dataType: "json",
+    success: function (data) {
+      console.log(data);
+      plotdata = JSON.parse(data['value']);
+      console.log(plotdata);
+      setTimeout(function () {
+        var IVVLFdbkof_series_chart = Highcharts.chart("div_IVVLFdbkof_series", {
+          chart: {
+            borderColor: '#cccccc',
+            borderWidth: 1,
+            marginLeft: 70,
+          },
+          title: {
+            text: "IVVLFdbkof timeseries",
+            style: {
+              color: '#7f7f7f',
+              fontWeight: 'bold',
+              fontSize: "12px"
+            }
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            title: {
+              text: "time"
+            }
+          },
+          yAxis: {
+            min: 0.75,
+            max: 1.25,
+            title: {
+              text: "IVVLFdbkof"
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          series: [{
+            data: plotdata['IVVLFdbkof_series'],
+            turboThreshold: 0,
+            lineWidth: 2
+          }]
+        });
+
+        var IVVLFdbkof_distr_chart = Highcharts.chart("div_IVVLFdbkof_distr", {
+          chart: {
+            borderColor: '#cccccc',
+            borderWidth: 1,
+          },
+          title: {
+            text: "IVVLFdbkof distribution",
+            style: {
+              color: '#7f7f7f',
+              fontWeight: 'bold',
+              fontSize: "12px"
+            }
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            max: plotdata['IVVLFdbkof_distr_x'].length-1,
+            categories: plotdata['IVVLFdbkof_distr_x'],
+            title: {
+              text: "IVVLFdbkof"
+            }
+          },
+          yAxis: {
+            title: {
+              text: "count"
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          series: [{
+            type: 'column',
+            data: plotdata['IVVLFdbkof_distr_y'],
+            turboThreshold: 0,
+            lineWidth: 3
+          }]
+        });
+        
+        var IVVLFdbkofr_series_chart = Highcharts.chart("div_IVVLFdbkofr_series", {
+          chart: {
+            borderColor: '#cccccc',
+            borderWidth: 1,
+            marginLeft: 70,
+          },
+          title: {
+            text: "IVVLFdbkofr timeseries",
+            style: {
+              color: '#7f7f7f',
+              fontWeight: 'bold',
+              fontSize: "12px"
+            }
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            title: {
+              text: "time"
+            }
+          },
+          yAxis: {
+            min: 0.75,
+            max: 1.25,
+            title: {
+              text: "IVVLFdbkofr"
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          series: [{
+            data: plotdata['IVVLFdbkofr_series'],
+            turboThreshold: 0,
+            lineWidth: 2
+          }]
+        });
+
+        var IVVLFdbkofr_distr_chart = Highcharts.chart("div_IVVLFdbkofr_distr", {
+          chart: {
+            borderColor: '#cccccc',
+            borderWidth: 1,
+          },
+          title: {
+            text: "IVVLFdbkofr distribution",
+            style: {
+              color: '#7f7f7f',
+              fontWeight: 'bold',
+              fontSize: "12px"
+            }
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            max: plotdata['IVVLFdbkofr_distr_x'].length-1,
+            categories: plotdata['IVVLFdbkofr_distr_x'],
+            title: {
+              text: "IVVLFdbkofr"
+            }
+          },
+          yAxis: {
+            title: {
+              text: "count"
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          series: [{
+            type: 'column',
+            data: plotdata['IVVLFdbkofr_distr_y'],
+            turboThreshold: 0,
+            lineWidth: 3
+          }]
+        });
+        
+
+
+      }, 100);
+    }
+  });
+</script> {% endblock %}
